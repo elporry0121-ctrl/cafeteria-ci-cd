@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+
 permissions:
   contents: read
 
@@ -24,17 +25,17 @@ jobs:
       - name: ejecutar pruebas
         run: node --test pedido.test.js
 
- entregar:
-   name: CD - preparar entrega
-   needs: validar
-   runs-on: ubuntu-latest
-   steps:
-     - name: descargar proyecto
-       uses: actions/checkout@v7
+  deploy:
+    name: CD - preparar entrega
+    needs: validar
+    runs-on: ubuntu-latest
+    steps:
+      - name: descargar proyecto
+        uses: actions/checkout@v7
 
-     - name: guardar artefacto
-       uses: actions/upload-artifact@v7
-       with:
-         name: pedido-validado
-         path: pedido.js
+      - name: guardar artefacto
+        uses: actions/upload-artifact@v7
+        with:
+          name: pedido-validado
+          path: pedido.js
         
